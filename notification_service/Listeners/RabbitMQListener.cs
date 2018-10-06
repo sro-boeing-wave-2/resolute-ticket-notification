@@ -43,7 +43,7 @@ namespace notification_service.Listeners
                                 notificationMessage.description = ticket.Description;
                                 notificationMessage.createdOn = DateTime.Now;
                                 Console.WriteLine("Sending Notification");
-                                _connection.InvokeAsync("SendNotification", ticket.AgentEmailid, notificationMessage);
+                                _connection.InvokeAsync("SendNotification", ticket.AgentEmailid, JsonConvert.SerializeObject(notificationMessage));
                                 Console.WriteLine(" [x] Sent {0}", JsonConvert.SerializeObject(notificationMessage));
                             };
             channel.BasicConsume(queue: "ticket-notification", autoAck: true, consumer: consumer);

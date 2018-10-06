@@ -13,12 +13,12 @@ namespace notification_service.Hubs
     {
         public Dictionary<string, string> connectionMapping = new Dictionary<string, string>();
 
-        public async Task SendNotification(string email, Notification message)
+        public async Task SendNotification(string email, string message)
         {
-            Console.WriteLine("Sending Notification: " + JsonConvert.SerializeObject(message));
+            Console.WriteLine("Sending Notification: " + message);
             Console.WriteLine("ConnectionId " + connectionMapping[email]);
             if (!string.IsNullOrEmpty(connectionMapping[email])) {
-                await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", JsonConvert.SerializeObject(message));
+                await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", message);
             }
         }
 
