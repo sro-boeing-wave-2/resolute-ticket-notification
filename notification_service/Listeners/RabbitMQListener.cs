@@ -18,13 +18,13 @@ namespace notification_service.Listeners
 
         public RabbitMQListener()
         {
-            _connection = new HubConnectionBuilder().WithUrl("http://" + Constants.BASE_URL + "/notifications").Build();
-            _connection.StartAsync();
+            _connection = new HubConnectionBuilder().WithUrl("http://13.126.8.255/notification/notifications").Build();
             startListener();
         }
 
-        public void startListener()
+        public async void startListener()
         {
+            await _connection.StartAsync();
             Console.WriteLine("Starting RabbitMQ listener");
             var factory = new ConnectionFactory() { HostName = Constants.BASE_URL };
             var connection = factory.CreateConnection();
