@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    container_name: notification-service
+    build: ./notification_service/
+    labels:
+        SERVICE_80_NAME: notification-service
+        SERVICE_TAG: notification-service
