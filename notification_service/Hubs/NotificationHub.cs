@@ -15,7 +15,7 @@ namespace notification_service.Hubs
 
         public async Task SendNotification(string email, Notification message)
         {
-            Console.WriteLine(JsonConvert.SerializeObject(message));
+            Console.WriteLine("Sending Notification: " + JsonConvert.SerializeObject(message));
             Console.WriteLine("ConnectionId " + connectionMapping[email]);
             if (!string.IsNullOrEmpty(connectionMapping[email])) {
                 await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", JsonConvert.SerializeObject(message));
