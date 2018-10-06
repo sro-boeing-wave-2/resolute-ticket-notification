@@ -17,7 +17,7 @@ namespace notification_service
     {
         public static void Main(string[] args)
         {
-            //Env.Load("./machine_config/.env");
+            Env.Load("./machine_config/.env");
             CreateWebHostBuilder(args).Build().Run();
         }
 
