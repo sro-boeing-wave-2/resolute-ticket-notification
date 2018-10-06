@@ -36,7 +36,7 @@ namespace notification_service.Listeners
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += (model, ea) =>
                                     {
-                                        Console.WriteLine("Received Message.");
+                                        Console.WriteLine("Received Message");
                                         var body = ea.Body;
                                         var message = Encoding.UTF8.GetString(body);
                                         Ticket ticket = JsonConvert.DeserializeObject<Ticket>(message);
