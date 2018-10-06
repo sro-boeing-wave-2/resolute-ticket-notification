@@ -11,17 +11,17 @@ namespace notification_service.Hubs
 {
     class NotificationHub : Hub
     {
-        public Dictionary<string, string> connectionMapping = new Dictionary<string, string>();
+        public static Dictionary<string, string> connectionMapping = new Dictionary<string, string>();
 
         public async Task SendNotification(string email, string message)
         {
-            if (connectionMapping.ContainsKey(email)) { 
+            if (NotificationHub.connectionMapping.ContainsKey(email)) { 
                     Console.WriteLine("Sending Notification: " + message);
-                    Console.WriteLine("ConnectionId " + connectionMapping[email]);
-                    if (!string.IsNullOrEmpty(connectionMapping[email]))
+                    Console.WriteLine("ConnectionId " + NotificationHub.connectionMapping[email]);
+                    if (!string.IsNullOrEmpty(NotificationHub.connectionMapping[email]))
                     {
                         Console.WriteLine("Found user, sending the message.");
-                        await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", message);
+                        await Clients.Client(NotificationHub.connectionMapping[email]).SendAsync("ReceiveNotification", message);
                     }
             } else
             {
@@ -31,15 +31,15 @@ namespace notification_service.Hubs
 
         public async Task Config(string email)
         {
-            if (connectionMapping.ContainsKey(email))
+            if (NotificationHub.connectionMapping.ContainsKey(email))
             {
-                connectionMapping[email] = Context.ConnectionId;
+                NotificationHub.connectionMapping[email] = Context.ConnectionId;
             }
             else
             {
-                connectionMapping.Add(email, Context.ConnectionId);
+                NotificationHub.connectionMapping.Add(email, Context.ConnectionId);
             }
-            Console.WriteLine("ConnectionId: " + connectionMapping[email] + " Email: " + email + " added to the mapping.");
+            Console.WriteLine("ConnectionId: " + NotificationHub.connectionMapping[email] + " Email: " + email + " added to the mapping.");
         }
     }
 }
