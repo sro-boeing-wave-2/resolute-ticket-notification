@@ -6,5 +6,6 @@ namespace notification_service.Listeners
 {
     public interface IListener
     {
+        void startListener();
     }
 }

@@ -19,14 +19,13 @@ namespace notification_service.Listeners
         public RabbitMQListener()
         {
             _connection = new HubConnectionBuilder().WithUrl("http://13.126.8.255/notification/notifications").Build();
-            startListener();
         }
 
         public async void startListener()
         {
             await _connection.StartAsync();
             Console.WriteLine("Starting RabbitMQ listener");
-            var factory = new ConnectionFactory() { HostName = Constants.BASE_URL };
+            var factory = new ConnectionFactory() { HostName = "13.126.8.255" };//Constants.BASE_URL };
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
             channel.QueueDeclare(queue: "ticket-notification", durable: true, exclusive: false, autoDelete: false, arguments: null);
