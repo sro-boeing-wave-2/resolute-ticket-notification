@@ -23,7 +23,8 @@ namespace notification_service
             services.AddSignalR();
             services.AddCors(
                 options => options.AddPolicy("allowaccess",
-                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+
                 ));
         }
 
@@ -43,7 +44,6 @@ namespace notification_service
             {
                 routes.MapHub<NotificationHub>("/notifications");
             });
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
