@@ -38,6 +38,7 @@ namespace notification_service.Listeners
                     {
                         BasicDeliverEventArgs basicDeliveryEventArgs =
                             subscription.Next();
+                        Console.WriteLine("Received Message: " + JsonConvert.SerializeObject(basicDeliveryEventArgs));
                         string messageContent =
                             Encoding.UTF8.GetString(basicDeliveryEventArgs.Body);
                         Console.WriteLine(messageContent);
