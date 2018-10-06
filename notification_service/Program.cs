@@ -18,9 +18,6 @@ namespace notification_service
         public static void Main(string[] args)
         {
             Env.Load("./machine_config/.env");
-            RabbitMQListener listener = new RabbitMQListener();
-            Thread t = new Thread(listener.startListener);
-            t.Start();
             CreateWebHostBuilder(args).Build().Run();
         }
 
