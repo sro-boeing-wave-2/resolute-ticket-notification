@@ -15,11 +15,17 @@ namespace notification_service.Hubs
 
         public async Task SendNotification(string email, string message)
         {
-            Console.WriteLine("Sending Notification: " + message);
-            Console.WriteLine("ConnectionId " + connectionMapping[email]);
-            if (!string.IsNullOrEmpty(connectionMapping[email])) {
-                Console.WriteLine("Found user, sending the message.");
-                await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", message);
+            if (connectionMapping.ContainsKey(email)) { 
+                    Console.WriteLine("Sending Notification: " + message);
+                    Console.WriteLine("ConnectionId " + connectionMapping[email]);
+                    if (!string.IsNullOrEmpty(connectionMapping[email]))
+                    {
+                        Console.WriteLine("Found user, sending the message.");
+                        await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", message);
+                    }
+            } else
+            {
+                Console.WriteLine("Email not registered in the mapping.");
             }
         }
 
