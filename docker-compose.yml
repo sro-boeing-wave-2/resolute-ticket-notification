@@ -6,3 +6,5 @@ services:
     labels:
         SERVICE_80_NAME: notification-service
         SERVICE_TAG: notification-service
+    volumes: 
+        - "/machine_config:/app/machine_config"
