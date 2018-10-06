@@ -31,6 +31,7 @@ namespace notification_service.Listeners
             {
                 using (var channel = connection.CreateModel())
                 {
+                    channel.QueueDeclare(queue: "ticket-notification", durable: true, exclusive: false, autoDelete: false, arguments: null);
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += (model, ea) =>
                                     {
