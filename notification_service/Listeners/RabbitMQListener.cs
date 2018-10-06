@@ -18,12 +18,10 @@ namespace notification_service.Listeners
 
         public RabbitMQListener()
         {
-            _connection = new HubConnectionBuilder().WithUrl("http://13.126.8.255/notification/notifications").Build();
         }
 
         public async void startListener()
         {
-            await _connection.StartAsync();
             Console.WriteLine("Starting RabbitMQ listener");
             var factory = new ConnectionFactory() { HostName = "13.126.8.255" };//Constants.BASE_URL };
             var connection = factory.CreateConnection();
@@ -42,6 +40,8 @@ namespace notification_service.Listeners
                                 notificationMessage.description = ticket.Description;
                                 notificationMessage.createdOn = DateTime.Now;
                                 Console.WriteLine("Sending Notification");
+                                _connection = new HubConnectionBuilder().WithUrl("http://13.126.8.255/notification/notifications").Build();
+                                _connection.StartAsync();
                                 _connection.InvokeAsync("SendNotification", ticket.AgentEmailid, JsonConvert.SerializeObject(notificationMessage));
                                 Console.WriteLine(" [x] Sent {0}", JsonConvert.SerializeObject(notificationMessage));
                             };
