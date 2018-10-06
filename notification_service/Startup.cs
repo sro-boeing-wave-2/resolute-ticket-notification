@@ -45,7 +45,7 @@ namespace notification_service
                 routes.MapHub<NotificationHub>("/notifications");
             });
             app.UseMvc();
-            //rabbitMQListener.startListener();
+            rabbitMQListener.startListener();
         }
     }
 }

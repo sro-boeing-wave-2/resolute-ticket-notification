@@ -18,6 +18,7 @@ namespace notification_service.Hubs
             Console.WriteLine("Sending Notification: " + message);
             Console.WriteLine("ConnectionId " + connectionMapping[email]);
             if (!string.IsNullOrEmpty(connectionMapping[email])) {
+                Console.WriteLine("Found user, sending the message.");
                 await Clients.Client(connectionMapping[email]).SendAsync("ReceiveNotification", message);
             }
         }
