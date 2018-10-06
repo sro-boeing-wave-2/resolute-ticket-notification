@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using notification_service.Listeners;
 
 namespace notification_service
 {
@@ -14,6 +16,9 @@ namespace notification_service
     {
         public static void Main(string[] args)
         {
+            RabbitMQListener listener = new RabbitMQListener();
+            Thread t = new Thread(listener.startListener);
+            t.Start();
             CreateWebHostBuilder(args).Build().Run();
         }
 
