@@ -7,6 +7,7 @@ using System;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Collections.Generic;   
 using System.Text;
+using notification_service.Utils;
 
 namespace notification_service.Listeners
 {
@@ -16,7 +17,7 @@ namespace notification_service.Listeners
 
         public RabbitMQListener()
         {
-            _connection = new HubConnectionBuilder().WithUrl("http://13.126.8.255/notifications").Build();
+            _connection = new HubConnectionBuilder().WithUrl("http://" + Constants.BASE_URL + "/notifications").Build();
             _connection.StartAsync();
         }
 
@@ -25,7 +26,7 @@ namespace notification_service.Listeners
         public void startListener()
         {
             Console.WriteLine("Starting RabbitMQ listener");
-            var factory = new ConnectionFactory() { HostName = "13.126.8.255" };
+            var factory = new ConnectionFactory() { HostName = Constants.BASE_URL };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ namespace notification_service
     {
         public static void Main(string[] args)
         {
+            Env.Load("./machine_config/.env");
             RabbitMQListener listener = new RabbitMQListener();
             Thread t = new Thread(listener.startListener);
             t.Start();
