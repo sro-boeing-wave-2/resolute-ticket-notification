@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using notification_service.Hubs;
+using notification_service.Listeners;
 
 namespace notification_service
 {
@@ -23,13 +24,12 @@ namespace notification_service
             services.AddSignalR();
             services.AddCors(
                 options => options.AddPolicy("allowaccess",
-                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-
-                ));
+                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddSingleton<IListener, RabbitMQListener>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IListener rabbitMQListener)
         {
             if (env.IsDevelopment())
             {
